@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Todo;
 use Illuminate\Http\Request;
 
 class ToDoController extends Controller
@@ -18,6 +18,7 @@ class ToDoController extends Controller
      */
     public function index()
     {
+        dd(Todo::where('description','Test description')->get());
         return 'Test todo';
     }
 
