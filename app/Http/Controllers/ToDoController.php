@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ToDoRequest;
 
 class ToDoController extends Controller
 {
@@ -18,8 +21,9 @@ class ToDoController extends Controller
      */
     public function index()
     {
-        dd(Todo::where('description','Test description')->get());
-        return 'Test todo';
+        $todos = Todo::where('userid', auth()->user()->id)->orderByDesc('created_at')->paginate(5);
+
+        return view('todo.index')->with('todos', $todos);
     }
 
     /**
@@ -30,6 +34,7 @@ class ToDoController extends Controller
     public function create()
     {
         //
+        return view('todo.create');
     }
 
     /**
@@ -38,9 +43,17 @@ class ToDoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ToDoRequest $request)
     {
         //
+        $todo = new Todo();
+        $todo->title = $request->input('title');
+        $todo->description = $request->input('description');
+        $todo->userid = auth()->user()->id;
+        $todo->due_date = date('Y-m-d h:i:s', strtotime($request->input('due_date')));
+        
+        $todo->save();
+        return redirect('/todo')->with('success', 'New To Do task Created');
     }
 
     /**
@@ -52,6 +65,7 @@ class ToDoController extends Controller
     public function show($id)
     {
         //
+        dd($id);
     }
 
     /**
