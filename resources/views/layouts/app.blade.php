@@ -103,6 +103,15 @@
 
         });
     </script>
+    <script type="text/javascript" defer>
+        function doSubmit(e, formID, confirmMsg) {
+            e.preventDefault();
+            if (confirm(confirmMsg)) {
+                let deleteForm = document.getElementById(formID);
+                deleteForm.submit();
+            }
+        }
+    </script>
 </body>
 
 </html>

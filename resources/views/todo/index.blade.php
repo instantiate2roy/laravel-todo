@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     @Auth
-        <div class="container">
+        <div class="container todoContainer">
             <div class="card">
                 <div class="card-header">
                     <div style="float: right;">
@@ -19,27 +19,35 @@
                                 <li class="list-group-item">
                                     <div class="row">
                                         <div class='col-md-11'>
-                                            <a href="/todo/{{ $todo->id }}">
+                                            <a href="/todo/{{ $todo->id }}?todoLastPage={{ $todos->currentPage() }}">
                                                 <div class='row'><strong>{{ $todo->title }}</strong></div>
                                                 <div class='row'>
-                                                    <code>Due:{{ date('d M Y  H:i', strtotime($todo->due_date)) }}</code>
+                                                    <code>Due:{{ $todo->TimeRemaining }}</code>
                                                 </div>
                                             </a>
                                         </div>
                                         <div class='col-md-1'>
-                                            <div class='row'>
-                                                <div class='col-md-6'><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                                <div class='col-md-6'><i class="fa fa-close deleteBtn" aria-hidden="true"></i>
-                                                </div>
+                                            {!! Form::open([
+                                                'action' => ['App\Http\Controllers\ToDoController@destroy', $todo->id],
+                                                'method' => 'POST',
+                                                'id' => 'deleteToDo',
+                                                'onSubmit' => 'return doSubmit(event, "deleteToDo",' . json_encode($confirmDeleteMsg) . ')',
+                                            ]) !!}
 
-                                            </div>
-
+                                            {{ Form::hidden('_method', 'DELETE') }}
+                                            {{ Form::hidden($lastPageName, $todos->currentPage()) }}
+                                            <button class='fa fa-close deleteXIcon' type="submit"></button>
+                                            {!! Form::close() !!}
                                         </div>
                                     </div>
                                 </li>
                             @endforeach
                             <br>
                             {{ $todos->links() }}
+                        @else
+                            <div>
+                                No To do items yet.
+                            </div>
                         @endif
                     </ol>
                 </div>
