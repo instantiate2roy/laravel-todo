@@ -5,3 +5,35 @@
 .deleteBtn {
     color: red;
 }
+
+.deleteXIcon {
+    color: red;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.deleteTodoBtn {
+    float: right;
+}
+
+.editTodoBtn {
+    float: right;
+}
+
+.todoContainer {
+    width: 70%;
+}
+
+.backBtn {
+    float: left;
+}
+
+.cardTitle {
+    text-align: center;
+    font-weight: bold;
+}
+
+.todoDescShow {
+    padding-top: 2%;
+    padding-bottom: 2%;
+}

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
     @Auth
-        <div class="container">
+        <div class="container todoContainer">
             <div class='card'>
                 <div class="card-header">
-                    <div style="float: right;">
+                    <div class="backBtn">
                         <a class="btn btn-primary" href="/todo"><i class="fa fa-arrow-left" aria-hidden="true"> Go Back</i> </a>
                     </div>
-                    <div>New To Do Item</div>
+                    <div class="cardTitle"><h1><u>New To Do Item</u></h1></div>
                 </div>
 
                 <div class="card-body">
@@ -17,6 +17,7 @@
                         {{ Form::text('title', '', [
                             'class' => 'form-control',
                             'placeholder' => 'Title',
+                            'required'=>true
                         ]) }}
                     </div>
                     <br>
@@ -25,13 +26,14 @@
                         {{ Form::textarea('description', '', [
                             'class' => 'form-control',
                             'placeholder' => 'description',
-                            'id' => 'ck_editor_element',
+                            'id' => 'ck_editor_element'
+                            
                         ]) }}
                     </div>
                     <br>
                     <div class="form-group">
                         {{ Form::label('due_date', 'Due Date') }}
-                        <input class="form-control" type="datetime-local" name="due_date">
+                        <input class="form-control" type="datetime-local" name="due_date" required>
 
                     </div>
                     <br>
